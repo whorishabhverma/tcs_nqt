@@ -1,0 +1,31 @@
+link : https://www.geeksforgeeks.org/problems/next-larger-element-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+
+code: 
+class Solution
+{
+    typedef long long ll;
+    public:
+    //Function to find the next greater element for each element of the array.
+    vector<long long> nextLargerElement(vector<long long> arr, int n){
+        vector<ll> ans;
+        stack<ll> st;
+        ll neg=-1;
+        for(int i=n-1;i>=0;i--){
+            if(st.empty()) ans.push_back(neg);
+            else if( !st.empty() && st.top() > arr[i] ){
+                ans.push_back(st.top());
+            }
+            else{
+                while( !st.empty() && st.top()<=arr[i]){
+                    st.pop();
+                }
+                if(st.empty()) ans.push_back(neg); 
+                else ans.push_back(st.top());
+            }
+            st.push(arr[i]); 
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
